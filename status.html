@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="ltr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Open Minds Hotspot > status</title>
+	$(if refresh-timeout)
+	<meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+	$(endif)
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="expires" content="-1">
+
+  <!-- CSS  -->
+  <link href="css/font.css" rel="stylesheet">
+  <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <!--  <link href="css/foundation.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
+
+<script language="JavaScript">
+<!--
+$(if advert-pending == 'yes')
+    var popup = '';
+    function focusAdvert() {
+	if (window.focus) popup.focus();
+    }
+    function openAdvert() {
+	popup = open('$(link-advert)', 'hotspot_advert', '');
+	setTimeout("focusAdvert()", 1000);
+    }
+$(endif)
+    function openLogout() {
+	if (window.name != 'hotspot_status') return true;
+        open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=280,height=250');
+	window.close();
+	return false;
+    }
+//-->
+</script>
+</head>
+<body bottommargin="0" topmargin="0" leftmargin="0" rightmargin="0"
+$(if advert-pending == 'yes')
+	onLoad="openAdvert()"
+$(endif)
+>
+
+	<div>
+		$(if login-by == 'trial')
+			<br><div class="col s12 m8 offset-m2 l6 offset-l3 card-panel light-green darken-4 align-center " style="text-align: center;">Welcome Guest user!</div><br>
+		$(elif login-by != 'mac')
+			<br><div class="col s12 m8 offset-m2 l6 offset-l3 card-panel  light-green accent-4" style="text-align: center;">Welcome $(username)!</div><br>
+		$(endif)
+
+	</div>
+	<div class="container">
+<div class="card-panel hoverable col s12 m12 l5" style="border: 1px solid #e0e0e0;padding: 50px 20px;">
+	<form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+		<!-- <div class="col s12 m8 offset-m2 l6 offset-l3">
+		    <div class="card-panel grey lighten-5 z-depth-1">
+		      <div class="row valign-wrapper"> -->
+
+		         <div class="row">
+
+		             <div class="col s12 m6 l6">IP address:</div>
+		             <div class="col s12 m6 l6">$(ip)</div>
+
+		         </div>
+
+
+
+		         <div class="row">
+		           <div class="col s12 m6 l6">bytes up/down:</div>
+		           <div class="col s12 m6 l6">$(bytes-in-nice) / $(bytes-out-nice)</div>
+
+		         </div>
+						 																																		 $(if session-time-left)
+		         <div class="row">
+		           <div class="col s12 m6 l6">connected / left:</div>
+		           <div class="col s12 m6 l6">$(uptime) / $(session-time-left)</div>
+
+		         </div>
+						 																																		$(else)
+		         <div class="row">
+		           <div class="col s12 m6 l6">connected:</div>
+		           <div class="col s12 m6 l6">$(uptime)</div>
+
+		         </div>
+																																								 $(endif)
+																																								 $(if blocked == 'yes')
+						 <div class="row">
+						    <div class="col s12 m6 l6">status:</div>
+								<div class="col s12 m6 l6"><div style="color: #FF8080">
+							<a href="$(link-advert)" target="hotspot_advert">advertisement</a> required</div> </div>
+
+						</div>
+																																								$(elif refresh-timeout)
+
+				   	<div class="row">
+							  <div class="col s12 m6 l6">status refresh:</div>
+								<div class="col s12 m6 l6">$(refresh-timeout)</div>
+
+						</div>
+																																							$(endif)
+
+						<div class="row">																															$(if login-by-mac != 'yes')
+						</div>
+
+																																							<!-- user manager link. if user manager resides on other router, replace $(hostname) by its address
+																																							<button onclick="document.location='http://$(hostname)/user?subs='; return false;">status</button>
+					 																																	<!-- end of user manager link -->
+					<div class="row">
+								<div class="col s12 m6 l6 ">
+									<button type="submit" class="btn waves-effect waves-light col s12 light-blue darken-2" value="log off" > Logout</button>$(endif)
+
+
+								</div>
+								<div class="col s12 m6 l6 ">
+
+									<button class="btn waves-effect waves-light col s12 light-blue darken-2" onclick="document.location='http://$(hostname)/user?subs='; return false;">status</button>
+
+								</div>
+				  </div>
+
+				<!-- </div>
+				</div>
+			 </div> -->
+		 </form>
+	 </div>
+	 </div>
+</body>
+</html>
